@@ -1,0 +1,5 @@
+description("Entities")
+
+dependencies {
+    testImplementation libs.unit_test
+}

@@ -1,0 +1,119 @@
+group 'com.github.eniltonangelim'
+version '1.0-SNAPSHOT'
+
+description("GG Bank - Clean Architeture")
+
+buildscript {
+    ext.artifactId = "ggbank-ca"
+    ext.archive_extension = 'jar'
+    ext.archive_file_name = "${artifactId}.${archive_extension}"
+
+    ext.kotlin_version = '1.5.0'
+    ext.jacoco_palantir_version = '0.4.0'
+
+    repositories {
+        jcenter()
+    }
+
+
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath("com.palantir:jacoco-coverage:$jacoco_palantir_version")
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+    }
+}
+
+subprojects {
+    ext {
+        versions = [
+                junit   :   "5.2.0",
+                assertj :   "3.11.1",
+                exposed :   "0.0.0",
+                fuel    :   "0.0.0",
+                jackson_kotlin :   "2.9.7",
+                javalin :   "0.0.0",
+                joda_money  :   "0.0.0",
+                kmongo  :   "0.0.0",
+                koin    :   "0.0.0",
+                log4j2  :   "0.0.0",
+                swagger :   "0.0.0",
+                mockk   :   "1.9",
+                spring  :   "2.5.0.RELEASE"
+        ]
+
+        libs = [
+                spring_test :   [
+                        "org.springframework.boot:spring-boot-starter-test:${versions.spring}"
+                ],
+                unit_test   :   [
+                        "org.junit.jupiter:junit-jupiter-api:${versions.junit}",
+                        "org.junit.jupiter:junit-jupiter-params:${versions.junit}",
+                        "org.junit.jupiter:junit-jupiter-engine:${versions.junit}",
+                        "io.mockk:mockk:${versions.mockk}",
+                ],
+                log          : [
+                        "org.springframework.boot:spring-boot-starter-logging:${versions.spring}"
+                ],
+                spring_config: [
+                        "org.springframework.boot:spring-boot-starter-web:${versions.spring}",
+                        "com.fasterxml.jackson.module:jackson-module-kotlin:${versions.jackson_kotlin}",
+                        "org.springframework.boot:spring-boot-configuration-processor:${versions.spring}",
+                        "io.springfox:springfox-swagger2:${versions.swagger}",
+                ],
+                rest         : [
+                        "org.springframework.boot:spring-boot-starter-web:${versions.spring}",
+                        "io.springfox:springfox-swagger-ui:${versions.swagger}",
+                ],
+                database     : [
+                        "org.springframework.boot:spring-boot-starter-data-jpa:${versions.spring}",
+                        "com.h2database:h2:${versions.h2}",
+                ],
+        ]
+
+    }
+}
+
+// Todo: exclude application, ex: 'allprojects - prject(:application)'
+configure(allprojects) {
+    apply plugin: "java"
+    apply plugin: "kotlin"
+    apply plugin: "org.jetbrains.kotlin.jvm"
+
+    compileKotlin {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+        kotlinOptions.javaParameters = true
+    }
+
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+        kotlinOptions.javaParameters = true
+    }
+
+    test {
+        useJUnitPlatform() {
+            excludeTags("integration")
+        }
+    }
+
+    task integrationTest(type: Test) {
+        group = "verification"
+        useJUnitPlatform() {
+            includeTags("integration")
+        }
+        check.dependsOn it
+        shouldRunAfter test
+    }
+
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    }
+
+}

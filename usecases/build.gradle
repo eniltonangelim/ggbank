@@ -1,0 +1,6 @@
+description("Usecases")
+
+dependencies {
+    implementation project(":domain")
+    testImplementation libs.unit_test
+}
