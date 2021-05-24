@@ -1,0 +1,7 @@
+description("Repository Fake")
+
+dependencies {
+    implementation project(":domain")
+    implementation libs.di
+    testImplementation libs.unit_test
+}
