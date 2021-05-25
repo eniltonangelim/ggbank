@@ -7,7 +7,7 @@ import com.github.eniltonangelim.ggbank.entities.account.model.value_objects.Nam
 import com.github.eniltonangelim.ggbank.entities.account.port.AccountRepository
 import java.math.BigDecimal
 
-class AccountFakeRepositoryImpl : AccountRepository {
+class AccountRepositoryImpl : AccountRepository {
 
     private val db = mutableMapOf(
         10 to Account(AccountNumber(10), Balance(BigDecimal(100)), Name("Angelim")),
