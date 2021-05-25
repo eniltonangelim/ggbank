@@ -1,4 +1,4 @@
-package com.github.eniltonangelim.ggbank.adapter.repository
+package com.github.eniltonangelim.ggbank.adapter.repository.account
 
 import com.github.eniltonangelim.ggbank.entities.account.model.Account
 import com.github.eniltonangelim.ggbank.entities.account.model.value_objects.AccountNumber

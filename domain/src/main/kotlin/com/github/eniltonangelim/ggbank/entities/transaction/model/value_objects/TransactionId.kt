@@ -2,4 +2,6 @@ package com.github.eniltonangelim.ggbank.entities.transaction.model.value_object
 
 import java.util.*
 
-data class TransactionId(val id: UUID = UUID.randomUUID())
+data class TransactionId(private val id: UUID = UUID.randomUUID()) {
+    fun get() = id
+}

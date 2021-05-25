@@ -1,5 +1,6 @@
-package com.github.eniltonangelim.ggbank.adapter.repository
+package com.github.eniltonangelim.ggbank.adapter.repository.account
 
+import com.github.eniltonangelim.ggbank.adapter.repository.fakeRepositoryModule
 import com.github.eniltonangelim.ggbank.entities.account.model.Account
 import com.github.eniltonangelim.ggbank.entities.account.model.value_objects.AccountNumber
 import com.github.eniltonangelim.ggbank.entities.account.model.value_objects.Balance
@@ -18,7 +19,7 @@ import org.koin.test.inject
 import java.math.BigDecimal
 import kotlin.test.assertEquals
 
-
+@DisplayName("Account Repository Validation")
 class TestAccountRepository : KoinTest {
 
     private val hundred = BigDecimal(100)

@@ -21,6 +21,7 @@ tasks {
 
 dependencies {
     implementation project(":domain")
+    implementation project(":repository")
 
     implementation libs.spring_config
     implementation libs.log

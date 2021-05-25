@@ -6,7 +6,9 @@ include("domain")
 include("usecases")
 include(":repository")
 include(":application")
+include(":controller")
 
 
 project(":repository").projectDir = file("adapters/repository/fake")
 project(":application").projectDir = file("application/spring-app")
+project(":controller").projectDir = file("controller/spring-rest")

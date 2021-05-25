@@ -1,0 +1,7 @@
+description("Rest Controller")
+
+dependencies {
+    implementation project(":usecases")
+    implementation libs.di
+    testImplementation libs.unit_test
+}
