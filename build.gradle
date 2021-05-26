@@ -45,6 +45,7 @@ subprojects {
                 log4j2        : "0.0.0",
                 swagger       : "3.0.0",
                 mockk         : "1.9",
+                mockito       : "3.5.9",
                 spring        : "2.5.0"
         ]
 
@@ -57,9 +58,9 @@ subprojects {
                         "org.junit.jupiter:junit-jupiter-params:${versions.junit}",
                         "org.junit.jupiter:junit-jupiter-engine:${versions.junit}",
                         "io.mockk:mockk:${versions.mockk}",
+                        "org.mockito:mockito-inline:${versions.mockito}",
                         "io.insert-koin:koin-test:${versions.koin}",
                         "io.insert-koin:koin-test-junit4:${versions.koin}",
-
                 ],
                 log          : [
                         "org.springframework.boot:spring-boot-starter-logging:${versions.spring}"
