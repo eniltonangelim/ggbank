@@ -1,39 +1,24 @@
 package com.github.eniltonangelim.ggbank.usecases.transaction.impl
 
-import com.github.eniltonangelim.ggbank.entities.account.model.AccountTransfer
+import com.github.eniltonangelim.ggbank.entities.account.model.AccountTransferCommand
 import com.github.eniltonangelim.ggbank.entities.account.model.value_objects.AccountNumber
+import com.github.eniltonangelim.ggbank.entities.account.model.value_objects.Balance
 import com.github.eniltonangelim.ggbank.entities.account.port.AccountRepository
-import com.github.eniltonangelim.ggbank.entities.account.port.DepositOperation
-import com.github.eniltonangelim.ggbank.entities.account.port.WithdrawOperation
-import com.github.eniltonangelim.ggbank.entities.transaction.model.TransactionType
-import com.github.eniltonangelim.ggbank.entities.transaction.port.TransactionRepository
 import com.github.eniltonangelim.ggbank.usecases.transaction.TransactionUsecase
-import java.math.BigDecimal
+import com.github.eniltonangelim.ggbank.usecases.transaction.dto.RegisterTransactionRequestDTO
 
-class TransactionUsecaseImpl() : TransactionUsecase {
+class TransactionUsecaseImpl(val accountRepository: AccountRepository) : TransactionUsecase {
 
+    override fun getAccount(accountNumber: AccountNumber) =
+        accountRepository.findByAccountNumber(accountNumber)
 
-    private lateinit var accountRepository: AccountRepository
-    private lateinit var transactionRepository: TransactionRepository
+    override fun transfer(registerTransaction: RegisterTransactionRequestDTO) {
+        val value = Balance(registerTransaction.value)
+        val accountWithdraw = getAccount(AccountNumber(registerTransaction.accountToWithdraw))
+        val accountDeposit = getAccount(AccountNumber(registerTransaction.accountToDeposit))
+        val transferCommand = AccountTransferCommand(value, accountWithdraw, accountDeposit)
 
-    override fun getAccount(accountNumber: AccountNumber) = accountRepository.findByAccountNumber(accountNumber)
-
-
-    override fun transfer(
-        value: BigDecimal,
-        type: TransactionType,
-        accountWithdrawOperation: AccountNumber,
-        accountDepositOperation: AccountNumber
-    ) {
-
-        val accountWithdraw = getAccount(accountWithdrawOperation)
-        val accountDeposit = getAccount(accountDepositOperation)
-        // TODO: valis is exists account
-
-        // TODO: transactions types
-
-        AccountTransfer.transfer(value, accountWithdraw, accountDeposit)
-
+        transferCommand.execute()
         accountRepository.save(accountWithdraw)
         accountRepository.save(accountDeposit)
     }

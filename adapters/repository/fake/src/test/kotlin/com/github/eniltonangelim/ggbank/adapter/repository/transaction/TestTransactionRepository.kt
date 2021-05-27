@@ -7,7 +7,6 @@ import com.github.eniltonangelim.ggbank.entities.transaction.model.Transaction
 import com.github.eniltonangelim.ggbank.entities.transaction.model.TransactionType
 import com.github.eniltonangelim.ggbank.entities.transaction.model.value_objects.TransactionId
 import com.github.eniltonangelim.ggbank.entities.transaction.port.TransactionRepository
-import org.junit.Rule
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -15,7 +14,6 @@ import org.junit.jupiter.api.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
-import org.koin.test.KoinTestRule
 import org.koin.test.inject
 import java.math.BigDecimal
 import java.util.*
@@ -30,12 +28,6 @@ class TestTransactionRepository : KoinTest {
     private lateinit var transaction: Transaction
 
     val repository by inject<TransactionRepository>()
-
-    @get:Rule
-    val koinTestRule = KoinTestRule.create {
-        modules(fakeRepositoryModule)
-    }
-
 
     @BeforeEach
     fun prepare() {

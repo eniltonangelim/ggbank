@@ -31,7 +31,8 @@ class TestAccountTransfer {
     @DisplayName("transferir R$ 150 sem saldo suficiente")
     fun test0() {
         try {
-            AccountTransfer.transfer(hundredFifty, accountWithdraw, accountDeposit)
+            val accountTransferCommand = AccountTransferCommand(Balance(hundredFifty), accountWithdraw, accountDeposit)
+            accountTransferCommand.execute()
             assertEquals(
                 hundred.subtract(hundredFifty),
                 accountWithdraw.balance.get(),
@@ -53,7 +54,8 @@ class TestAccountTransfer {
     @DisplayName("transferir  R$ 50")
     fun test1() {
         try {
-            AccountTransfer.transfer(fifty, accountWithdraw, accountDeposit)
+            val accountTransferCommand = AccountTransferCommand(Balance(fifty), accountWithdraw, accountDeposit)
+            accountTransferCommand.execute()
             assertEquals(
                 hundred.subtract(fifty),
                 accountWithdraw.balance.get(),

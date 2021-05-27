@@ -5,9 +5,7 @@ plugins {
 
 apply plugin: 'war'
 
-
 description("Spring Application")
-
 
 //Automatic Property Expansion Using Gradle
 // (https://docs.spring.io/spring-boot/docs/current/reference/html/howto-properties-and-configuration.html)
@@ -22,11 +20,14 @@ tasks {
 dependencies {
     implementation project(":domain")
     implementation project(":repository")
+    implementation project(":usecases")
+    implementation project(":controller")
 
     implementation libs.spring_config
     implementation libs.log
     implementation libs.di
 
     testImplementation libs.spring_test
+    testImplementation libs.arch_test
     testImplementation libs.unit_test
 }

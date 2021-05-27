@@ -6,7 +6,6 @@ import com.github.eniltonangelim.ggbank.entities.account.model.value_objects.Acc
 import com.github.eniltonangelim.ggbank.entities.account.model.value_objects.Balance
 import com.github.eniltonangelim.ggbank.entities.account.model.value_objects.Name
 import com.github.eniltonangelim.ggbank.entities.account.port.AccountRepository
-import org.junit.Rule
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
-import org.koin.test.KoinTestRule
 import org.koin.test.inject
 import java.math.BigDecimal
 import kotlin.test.assertEquals
@@ -29,11 +27,6 @@ class TestAccountRepository : KoinTest {
     private lateinit var accountCreatedExpected: Account
 
     val repository by inject<AccountRepository>()
-
-    @get:Rule
-    val koinTestRule = KoinTestRule.create {
-        modules(fakeRepositoryModule)
-    }
 
     @BeforeEach
     fun prepare() {

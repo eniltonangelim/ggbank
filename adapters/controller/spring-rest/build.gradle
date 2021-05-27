@@ -1,7 +1,11 @@
 description("Rest Controller")
 
 dependencies {
+    implementation project(":domain")
     implementation project(":usecases")
-    implementation libs.di
+
+    implementation libs.rest
+
+    testImplementation libs.spring_test
     testImplementation libs.unit_test
 }

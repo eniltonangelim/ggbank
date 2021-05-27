@@ -1,8 +1,0 @@
-server:
-  port: 8090
-
-application:
-  version: ${project.version}
-  name: ${project.name}
-  description: ${project.description}
-  artifact-id: ${project.artifactId}
